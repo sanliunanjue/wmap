@@ -1,4 +1,3 @@
-版权：中电海康集团有限公司
 邮箱：weixiquan@cetiti.com
 
 WMap的目的是融合百度和openlayers两种（以后会是多种）地图，在这两种地图的基础上，抽象并封装出一套WMap地图。
