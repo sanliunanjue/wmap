@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <title>openlayers圆内feature</title>
+  <link rel="shortcut icon" type="image/x-icon" href="../../img/map.png" />
+
+  <!-- jquery -->
+  <script type="text/javascript" src="../../libs/jquery-3.1.0.min.js"></script>
+  <script type="text/javascript" src="../../libs/Set.js"></script>
+  <script type="text/javascript" src="../../libs/underscore1.8.2-min.js"></script>
+
+  <!-- openlayers -->
+  <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
+</head>
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-family: "微软雅黑";
+    font-size: 14px;
+  }
+</style>
+
+<body>
+  <div id="map_container" style="width: 100%;height: 100%; display: inline-block; position: relative; border: solid 0px blue; float: left;"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+  var mapType = "openlayers";
+
+  //WMap.map 地图模块
+  var map = new ol.Map({
+    interactions: ol.interaction.defaults({
+      altShiftDragRotate: true, //alt+shift+左键可以让地图旋转
+      shiftDragZoom: true
+    }),
+    controls: ol.control.defaults({
+      attribution: false,
+      rotate: false,
+      zoom: false
+    }),
+    target: "map_container",
+    view: new ol.View({
+      projection: "EPSG:4326",
+      center: [120, 30],
+      zoom: 14
+    }),
+    layers: [
+      new ol.layer.Tile({
+        source: new ol.source.OSM()
+      })
+    ]
+  });
+
+  //图层
+  var layer = new ol.layer.Vector({
+    source: new ol.source.Vector({
+      wrapX: false
+    }),
+    name: "layer1",
+    type: 'vector'
+  });
+
+  // 覆盖物
+  var circle = new ol.Feature(new ol.geom.Circle([120, 30], 0.005));
+
+  //main
+  map.addLayer(layer);
+  layer.getSource().addFeatures([circle]);
+  var select = new ol.interaction.Select({
+    features: layer.getSource().getFeatures(),
+      });
+  var modify = new ol.interaction.Modify({
+    features: select.getFeatures()
+  });
+  map.addInteraction(modify);
+</script>

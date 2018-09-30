@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>openlayers图层管理</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../img/map.png" />
+
+    <!-- jquery -->
+    <script type="text/javascript" src="../../libs/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="../../libs/Set.js"></script>
+
+    <!-- openlayers -->
+    <script type="text/javascript" src="../../libs/ol.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/ol.css" />
+    <script type="text/javascript" src="../../libs/iclient9-openlayers.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/iclient9-openlayers.min.css" />
+    <script type="text/javascript" src="../../libs/ol-Ext.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/ol-ext.css" />
+</head>
+<style>
+    html,
+    body {
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+        font-family: "微软雅黑";
+        font-size: 14px;
+    }
+</style>
+
+<body>
+    <div id="map_container" style="width: 100%;height: 90%; display: inline-block; position: relative; border: solid 0px blue; float: left;"></div>
+    <div id="r-result">
+        <input type="button" onclick="showOver(1)" value="显示图层1" />
+        <input type="button" onclick="hideOver(1)" value="隐藏图层1" />
+        <input type="button" onclick="addFeature(1)" value="图层1添加feature" />
+        <input type="button" onclick="removeFeature(1)" value="图层1移除feature" />
+        <input type="button" onclick="clearLayer(1)" value="图层1清除feature" />
+    </div>
+    <div id="r-result">
+        <input type="button" onclick="showOver(2)" value="显示图层2" />
+        <input type="button" onclick="hideOver(2)" value="隐藏图层2" />
+        <input type="button" onclick="clearLayer(2)" value="图层2清除feature" />
+    </div>
+    <div>
+        当前图层的feature数量：
+        <input name="featureLength" id="featureLength" disabled></input>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../../libs/map/WMap.js"></script>
+<script type="text/javascript" src="../../libs/map/WLayer.js"></script>
+<script type="text/javascript" src="../../libs/map/WFeature.js"></script>
+<script type="text/javascript" src="../../libs/map/WOverlay.js"></script>
+<script type="text/javascript">
+    var mapType = "openlayers";
+    //WMap.map 地图模块
+    var map = new WMap("map_container", mapType);
+    map.setCenter(120, 30.02, 14);
+
+    //WMap.layer 图层模块
+    var layer1 = new WLayer("layer", mapType);
+    var layer2 = new WLayer("layer1", mapType);
+
+    //WMap.feature 覆盖物模块
+    var feature0 = new WFeature(mapType).Point([120, 29.99]);
+    var feature1 = new WFeature(mapType).Point([120, 30.01]);
+    var feature2 = new WFeature(mapType).Point([120, 30.02]);
+    var feature3 = new WFeature(mapType).Point([120, 30.03]);
+    var feature4 = new WFeature(mapType).Point([120, 30.04]);
+
+    var feature10 = new WFeature(mapType).Icon([120.01, 29.99], "../../img/poi_hospital.png", [24, 24], [12, 12]);
+    var feature11 = new WFeature(mapType).Icon([120.02, 30.01], "../../img/poi_hospital.png", [24, 24], [12, 12]);
+    var feature12 = new WFeature(mapType).Icon([120.03, 30.02], "../../img/poi_hospital.png", [24, 24], [12, 12]);
+    var feature13 = new WFeature(mapType).Icon([120.04, 30.03], "../../img/poi_hospital.png", [24, 24], [12, 12]);
+    var feature14 = new WFeature(mapType).Icon([120.05, 30.04], "../../img/poi_hospital.png", [24, 24], [12, 12]);
+
+
+    //mai
+    map.addLayer(layer1);
+    layer1.addFeature(feature0);
+    showFeatureLength();
+
+    map.addLayer(layer2);
+    layer2.addFeature(feature10);
+    layer2.addFeature(feature11);
+    layer2.addFeature(feature12);
+    layer2.addFeature(feature13);
+    layer2.addFeature(feature14);
+    showFeatureLength();
+
+
+    function showFeatureLength() {
+        var length = layer1.getFeatures().length + layer2.getFeatures().length;
+        $("#featureLength").val(length);
+    }
+
+    function showOver(flag) {
+        if (1 === flag) {
+            layer1.show(); //显示图层
+        } else if (2 === flag) {
+            layer2.show(); //显示图层
+        }
+        showFeatureLength();
+    }
+
+    function hideOver(flag) {
+        if (1 === flag) {
+            layer1.hide(); //隐藏图层
+        } else if (2 === flag) {
+            layer2.hide(); //隐藏图层
+        }
+        showFeatureLength();
+    }
+
+    function addFeature() {
+        layer1.addFeatures([feature1, feature2, feature3, feature4]); //添加feature
+        showFeatureLength();
+    }
+
+    function removeFeature() {
+        layer1.removeFeatures([feature1, feature2, feature3, feature4]); //移除feature
+        showFeatureLength();
+    }
+
+    function clearLayer(flag) {
+        if (1 === flag) {
+            layer1.clear(); //清除feature
+        } else if (2 === flag) {
+            layer2.clear(); //清除feature
+        }
+        showFeatureLength();
+    }
+</script>

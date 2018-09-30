@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>openlayersOMOT</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../img/map.png" />
+
+    <!-- jquery -->
+    <script type="text/javascript" src="../../libs/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="../../libs/Set.js"></script>
+    <script type="text/javascript" src="../../libs/underscore1.8.2-min.js"></script>
+
+    <!-- openlayers -->
+    <script type="text/javascript" src="../../libs/ol.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/ol.css" />
+    <script type="text/javascript" src="../../libs/iclient9-openlayers.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/iclient9-openlayers.min.css" />
+    <script type="text/javascript" src="../../libs/ol-Ext.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/ol-ext.css" />
+</head>
+<style>
+    html,
+    body {
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+        font-family: "微软雅黑";
+        font-size: 14px;
+    }
+</style>
+
+<body>
+    <div id="map_container" style="width: 100%;height: 95%; display: inline-block; position: relative; border: solid 0px blue; float: left;"></div>
+    <div id="map_container" style="height: 2%; display: inline-block; position: relative; border: solid 0px blue; float: left;">
+        <select name="drawingManager" id="drawingManager">
+            <option value="none">无 </option>
+            <option value="featureInReactangle">框选</option>
+            <option value="featureInCircle">圆选</option>
+        </select>
+        <select name="location" id="location">
+            <option value="none">无</option>
+            <option value="drawPoint">点击定位</option>
+            <option value="street">春江街道</option>
+        </select>
+    </div>
+    <div id="layerManager" style="margin-left: 20px; float: left;">
+        <input type="button" onclick="showLayer(1)" value="显示医院图层" />
+        <input type="button" onclick="hideLayer(1)" value="隐藏医院图层" />
+        <input type="button" onclick="showLayer(2)" value="显示学校图层" />
+        <input type="button" onclick="hideLayer(2)" value="隐藏学校图层" />
+        <input type="button" onclick="showLayer(3)" value="显示公司图层" />
+        <input type="button" onclick="hideLayer(3)" value="隐藏公司图层" />
+    </div>
+    <div style="margin-left: 20px; float: left;">tips: 圆旁拖拽按钮，点击之后方可拖拽</div>
+</body>
+
+</html>
+<script type="text/javascript" src="../../libs/map/WMap.js"></script>
+<script type="text/javascript" src="../../libs/map/WLayer.js"></script>
+<script type="text/javascript" src="../../libs/map/WFeature.js"></script>
+<script type="text/javascript" src="../../libs/map/WOverlay.js"></script>
+<script type="text/javascript" src="../../libs/map/WDrawingManager.js"></script>
+<script type="text/javascript" src="../../libs/map/WUtils.js"></script>
+
+<script type="text/javascript" src="../../js/application/openlayersOMOT/LayerManager.js"></script>
+<script type="text/javascript" src="../../js/application/openlayersOMOT/QueryManager.js"></script>
+<script type="text/javascript" src="../../js/application/openlayersOMOT/DrawingManager.js"></script>
+<script type="text/javascript" src="../../js/application/openlayersOMOT/Interaction.js"></script>
+<script type="text/javascript" src="../../js/application/openlayersOMOT/MapInit.js"></script>
+<script type="text/javascript" src="../../js/application/openlayersOMOT/Main.js"></script>

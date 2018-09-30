@@ -1,0 +1,16 @@
+.b-popup:after{
+  border: solid transparent;
+  border-bottom: 0;
+  content: ' ';
+  height: 0;
+  top: 100%;
+  position: absolute;
+  width: 0;
+  left: calc(50% - 10px);
+}
+
+.b-popup:after {
+  border-width: 10px;
+  border-top-color: #fff;
+  align-content: center;
+}

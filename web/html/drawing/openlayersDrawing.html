@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <title>openlayers绘制</title>
+  <link rel="shortcut icon" type="image/x-icon" href="../../img/map.png" />
+
+  <!-- jquery -->
+  <script type="text/javascript" src="../../libs/jquery-3.1.0.min.js"></script>
+  <script type="text/javascript" src="../../libs/Set.js"></script>
+
+  <!-- openlayers -->
+  <script type="text/javascript" src="../../libs/ol.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../css/ol.css" />
+  <script type="text/javascript" src="../../libs/iclient9-openlayers.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../css/iclient9-openlayers.min.css" />
+  <script type="text/javascript" src="../../libs/ol-Ext.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../css/ol-ext.css" />
+</head>
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-family: "微软雅黑";
+    font-size: 14px;
+  }
+</style>
+
+<body>
+  <div id="map_container" style="width: 100%;height: 95%; display: inline-block; position: relative; border: solid 0px blue; float: left;"></div>
+  <form class="form-inline">
+    <label>绘制类型 &nbsp;</label>
+    <select id="type">
+      <option value="DRAWING_MARKER">点</option>
+      <option value="DRAWING_POLYLINE">线</option>
+      <option value="DRAWING_POLYGON">多边形</option>
+      <option value="DRAWING_CIRCLE">圆</option>
+      <option value="DRAWING_RECTANGLE">矩形</option>
+    </select>
+  </form>
+</body>
+
+</html>
+<script type="text/javascript" src="../../libs/map/WMap.js"></script>
+<script type="text/javascript" src="../../libs/map/WLayer.js"></script>
+<script type="text/javascript" src="../../libs/map/WFeature.js"></script>
+<script type="text/javascript" src="../../libs/map/WOverlay.js"></script>
+<script type="text/javascript" src="../../libs/map/WDrawingManager.js"></script>
+<script type="text/javascript">
+  var mapType = "openlayers";
+  var map = new WMap("map_container", mapType);
+  map.setCenter(120, 30, 14);
+
+  //WMap.layer 图层模块
+  var layer = new WLayer("layer", mapType);
+  
+  //WDrawingManger 绘制模块
+  var drawingManager = new WDrawingManager(map, layer);
+
+  map.addLayer(layer)
+  drawingManager.setDrawingMode("DRAWING_MARKER", callback);
+  drawingManager.open();
+
+  var typeSelect = document.getElementById('type');
+  function callback(e) {
+            alert(type+"绘制完成")
+          }
+  typeSelect.onchange = function() {
+        var type = typeSelect.value;
+        drawingManager.setDrawingMode(type, callback);
+        drawingManager.open();
+      };
+</script>
